@@ -45,3 +45,9 @@ def update_task(task_id: int, task: TaskUpdate):
     if row is None:
         raise HTTPException(status_code=404, detail="Task not found")
     return row_to_dict(row)
+
+@app.delete("/tasks/{task_id}", status_code=204)
+def delete_task(task_id: int):
+    deleted = crud.delete_task(task_id)
+    if deleted is None:
+        raise HTTPException(status_code=404, detail="Task not found")
